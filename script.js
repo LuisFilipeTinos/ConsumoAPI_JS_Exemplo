@@ -5,16 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //API Pokemon:
     pokeButton.addEventListener("click", async () => {
-        let pokeInputText = document.getElementById("pokemon").value;
+        try {
+            let pokeInputText = document.getElementById("pokemon").value;
         
-        if (!pokeInputText)
-            return alert("Campo de nome/id vazio!");
+            if (!pokeInputText)
+                return alert("Campo de nome/id vazio!");
 
-        let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeInputText}`);
-        let data = await response.json();
+            let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeInputText}`);
+            let data = await response.json();
 
-        let pokeImage = document.getElementById("poke-img");
-        pokeImage.src = data.sprites.front_default;
+            let pokeImage = document.getElementById("poke-img");
+            pokeImage.src = data.sprites.front_default;
+        } catch (error) {
+            console.log("Erro: " + error);
+        }
+
     });
 
     //API Yugioh:
@@ -35,6 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 else
                     alert("Carta não encontrada!");
             })
-            .catch(error => console.log(error));
+            .catch(error => console.log("Erro: " + error));
     });
 });
